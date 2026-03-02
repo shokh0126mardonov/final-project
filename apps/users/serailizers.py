@@ -61,3 +61,16 @@ class UserSerializer(serializers.Serializer):
             raise serializers.ValidationError("Invalid telegram_id")
         return value
     
+class UserUpdateSerializer(serializers.Serializer):
+    username = serializers.CharField(required = False)
+    first_name = serializers.CharField(required = False)
+    last_name = serializers.CharField(required = False)
+    phone_number = serializers.CharField(required = False)
+    avatar = serializers.CharField(required = False)
+
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.save(update_fields=list(validated_data.keys()))
+        return instance

@@ -1,4 +1,6 @@
 from django.contrib.auth import get_user_model
+import redis
+
 
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -9,12 +11,17 @@ from .serailizers import UserSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
 from rest_framework import status
-from django.contrib.auth import get_user_model
-import redis
+
+from .serailizers import UserUpdateSerializer
 
 
 User = get_user_model()
 
+r = redis.Redis(
+    host='127.0.0.1',
+    port=6379,
+    decode_responses=True
+)
 
 class RegisterAPIView(APIView):
     permission_classes = [AllowAny]
@@ -39,43 +46,6 @@ class RegisterAPIView(APIView):
         if serializers.is_valid(raise_exception=True):
             user = serializers.save()
             return Response({"status":True},status=200)
-
-class UserProfileView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-    def get(self, request:Request)->Response:
-        print("USER:", request.user)
-        print("ID:", request.user.id)
-        print("CHAT_ID:", request.user.chat_id)
-        return Response(UserSerializer(request.user).data)
-       
-r = redis.Redis(
-    host='127.0.0.1',
-    port=6379,
-    decode_responses=True
-)
-import redis
-import re
-
-from django.contrib.auth import get_user_model
-from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework_simplejwt.tokens import RefreshToken
-
-User = get_user_model()
-
-r = redis.Redis(
-    host="127.0.0.1",
-    port=6379,
-    decode_responses=True
-)
-
 
 class TelegramLoginView(APIView):
 
@@ -110,3 +80,40 @@ class TelegramLoginView(APIView):
                 "access": str(token.access_token),
             },status=200)
 
+
+class LogoutView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+
+        try:
+            refresh_token = request.data.get("refresh")
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response({"detail": "Logged out"}, status=200)
+        except Exception:
+            return Response({"error": "Invalid token"}, status=400)
+
+
+
+class UserProfileView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+    def get(self, request:Request)->Response:
+        return Response(UserSerializer(request.user).data)
+    
+    def patch(self, request:Request)->Response:
+        user = request.user
+
+        serializers = UserUpdateSerializer(data = request.data,partial = True)
+
+        if serializers.is_valid(raise_exception=True):
+            update_user = serializers.update(user,request.data)
+
+            return Response(UserSerializer(update_user).data)
+       
