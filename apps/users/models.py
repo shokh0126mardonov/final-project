@@ -17,3 +17,9 @@ class User(AbstractUser):
 
     def __str__(self):
         return f"{self.username} ({self.role})"
+    
+    def is_user(self):
+        return self.role == self.Role.CUSTOMER
+    
+    def is_seller(self):
+        return self.role == self.Role.SELLER
