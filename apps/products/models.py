@@ -27,8 +27,8 @@ class Product(models.Model):
         ayirboshlash = "ayirboshlash","ayirboshlash"
 
 
-    seller = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE,related_name="products")
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="products")
     title = models.CharField(max_length=200)
     description = models.TextField()
     condition = models.CharField(max_length=50,choices=ConditionChoices.choices)
