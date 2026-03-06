@@ -6,30 +6,71 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('products', '0001_initial'),
-        ('sellers', '0002_alter_sellerprofile_address_and_more'),
+        ("products", "0001_initial"),
+        ("sellers", "0002_alter_sellerprofile_address_and_more"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('final_price', models.DecimalField(decimal_places=2, max_digits=12)),
-                ('status', models.CharField(choices=[('kutilyapti', 'Kutilyapti'), ('kelishilgan', 'Kelishilgan'), ('sotib_olingan', 'Sotib olingan'), ('bekor_qilingan', 'Bekor qilingan')], db_index=True, default='kutilyapti', max_length=20)),
-                ('meeting_location', models.CharField(blank=True, max_length=255)),
-                ('meeting_time', models.DateTimeField(blank=True, null=True)),
-                ('notes', models.TextField(blank=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('buyer', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='purchases', to=settings.AUTH_USER_MODEL)),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='orders', to='products.product')),
-                ('seller', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='sales', to='sellers.sellerprofile')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("final_price", models.DecimalField(decimal_places=2, max_digits=12)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("kutilyapti", "Kutilyapti"),
+                            ("kelishilgan", "Kelishilgan"),
+                            ("sotib_olingan", "Sotib olingan"),
+                            ("bekor_qilingan", "Bekor qilingan"),
+                        ],
+                        db_index=True,
+                        default="kutilyapti",
+                        max_length=20,
+                    ),
+                ),
+                ("meeting_location", models.CharField(blank=True, max_length=255)),
+                ("meeting_time", models.DateTimeField(blank=True, null=True)),
+                ("notes", models.TextField(blank=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "buyer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="purchases",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="orders",
+                        to="products.product",
+                    ),
+                ),
+                (
+                    "seller",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="sales",
+                        to="sellers.sellerprofile",
+                    ),
+                ),
             ],
         ),
     ]

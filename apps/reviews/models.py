@@ -6,24 +6,16 @@ from apps.orders.models import Order
 
 User = get_user_model()
 
-class Review(models.Model):
 
-    order = models.OneToOneField(
-        Order,
-        on_delete=models.PROTECT,
-        related_name="review"
-    )
+class Review(models.Model):
+    order = models.OneToOneField(Order, on_delete=models.PROTECT, related_name="review")
 
     reviewer = models.ForeignKey(
-        User,
-        on_delete=models.PROTECT,
-        related_name="given_reviews"
+        User, on_delete=models.PROTECT, related_name="given_reviews"
     )
 
     seller = models.ForeignKey(
-        User,
-        on_delete=models.PROTECT,
-        related_name="received_reviews"
+        User, on_delete=models.PROTECT, related_name="received_reviews"
     )
 
     rating = models.PositiveSmallIntegerField()

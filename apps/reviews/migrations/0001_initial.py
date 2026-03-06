@@ -6,25 +6,53 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('orders', '0001_initial'),
+        ("orders", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Review',
+            name="Review",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('rating', models.PositiveSmallIntegerField()),
-                ('comment', models.TextField(blank=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('order', models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, related_name='review', to='orders.order')),
-                ('reviewer', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='given_reviews', to=settings.AUTH_USER_MODEL)),
-                ('seller', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='received_reviews', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("rating", models.PositiveSmallIntegerField()),
+                ("comment", models.TextField(blank=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "order",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="review",
+                        to="orders.order",
+                    ),
+                ),
+                (
+                    "reviewer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="given_reviews",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "seller",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="received_reviews",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

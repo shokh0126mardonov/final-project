@@ -5,16 +5,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('categories', '0001_initial'),
-        ('products', '0002_alter_product_seller'),
+        ("categories", "0001_initial"),
+        ("products", "0002_alter_product_seller"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='product',
-            name='category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='products', to='categories.category'),
+            model_name="product",
+            name="category",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="products",
+                to="categories.category",
+            ),
         ),
     ]

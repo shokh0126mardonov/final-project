@@ -4,12 +4,12 @@ from .models import Product
 from apps.sellers.serializers import SellerProfileCreateSerializer
 
 from rest_framework import serializers
-from .models import Product
+from .models import Product, Favorite
 
 
 class ProductSerializers(serializers.ModelSerializer):
-
     seller = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Product
         fields = [
@@ -30,3 +30,10 @@ class ProductSerializers(serializers.ModelSerializer):
             "published_at",
             "expires_at",
         ]
+
+
+class FavoriteSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Favorite
+        fields = ["id", "user", "product", "created_at"]
+        read_only_fields = ["created_at"]

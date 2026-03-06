@@ -5,8 +5,8 @@ from .models import SellerProfile
 
 
 class SellerProfileCreateSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
 
-    user = UserSerializer(read_only = True)
     class Meta:
         model = SellerProfile
         fields = [
@@ -25,10 +25,7 @@ class SellerProfileCreateSerializer(serializers.ModelSerializer):
         if hasattr(user, "sellerprofile"):
             raise serializers.ValidationError("Seller profile mavjud")
 
-        seller_profile = SellerProfile.objects.create(
-            user=user,  
-            **validated_data
-        )
+        seller_profile = SellerProfile.objects.create(user=user, **validated_data)
 
         user.role = "seller"
         user.save(update_fields=["role"])

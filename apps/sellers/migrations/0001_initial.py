@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,20 +14,42 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='SellerProfile',
+            name="SellerProfile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('shop_name', models.CharField(unique=True, verbose_name="Do'kon nomi")),
-                ('shop_description', models.TextField(blank=True, null=True)),
-                ('shop_logo', models.ImageField(blank=True, null=True, upload_to='seller/%Y/%m/%d/')),
-                ('region', models.CharField()),
-                ('district', models.CharField()),
-                ('address', models.CharField(blank=True)),
-                ('rating', models.FloatField(default=0)),
-                ('total_sales', models.PositiveIntegerField(default=0)),
-                ('created_at', models.DateTimeField()),
-                ('updated_at', models.DateTimeField()),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "shop_name",
+                    models.CharField(unique=True, verbose_name="Do'kon nomi"),
+                ),
+                ("shop_description", models.TextField(blank=True, null=True)),
+                (
+                    "shop_logo",
+                    models.ImageField(
+                        blank=True, null=True, upload_to="seller/%Y/%m/%d/"
+                    ),
+                ),
+                ("region", models.CharField()),
+                ("district", models.CharField()),
+                ("address", models.CharField(blank=True)),
+                ("rating", models.FloatField(default=0)),
+                ("total_sales", models.PositiveIntegerField(default=0)),
+                ("created_at", models.DateTimeField()),
+                ("updated_at", models.DateTimeField()),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

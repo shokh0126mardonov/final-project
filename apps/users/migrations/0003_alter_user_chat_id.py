@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0002_alter_user_chat_id'),
+        ("users", "0002_alter_user_chat_id"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='chat_id',
+            model_name="user",
+            name="chat_id",
             field=models.BigIntegerField(blank=True, null=True, unique=True),
         ),
     ]

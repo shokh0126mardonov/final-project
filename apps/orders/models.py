@@ -6,8 +6,8 @@ from apps.sellers.models import SellerProfile
 
 User = get_user_model()
 
-class Order(models.Model):
 
+class Order(models.Model):
     class StatusChoices(models.TextChoices):
         PENDING = "kutilyapti", "Kutilyapti"
         AGREED = "kelishilgan", "Kelishilgan"
@@ -15,44 +15,27 @@ class Order(models.Model):
         CANCELLED = "bekor_qilingan", "Bekor qilingan"
 
     product = models.ForeignKey(
-        Product,
-        on_delete=models.PROTECT,
-        related_name="orders"
+        Product, on_delete=models.PROTECT, related_name="orders"
     )
 
-    buyer = models.ForeignKey(
-        User,
-        on_delete=models.PROTECT,
-        related_name="purchases"
-    )
+    buyer = models.ForeignKey(User, on_delete=models.PROTECT, related_name="purchases")
 
     seller = models.ForeignKey(
-        SellerProfile,
-        on_delete=models.PROTECT,
-        related_name="sales"
+        SellerProfile, on_delete=models.PROTECT, related_name="sales"
     )
 
-    final_price = models.DecimalField(
-        max_digits=12,
-        decimal_places=2
-    )
+    final_price = models.DecimalField(max_digits=12, decimal_places=2)
 
     status = models.CharField(
         max_length=20,
         choices=StatusChoices.choices,
         default=StatusChoices.PENDING,
-        db_index=True
+        db_index=True,
     )
 
-    meeting_location = models.CharField(
-        max_length=255,
-        blank=True
-    )
+    meeting_location = models.CharField(max_length=255, blank=True)
 
-    meeting_time = models.DateTimeField(
-        null=True,
-        blank=True
-    )
+    meeting_time = models.DateTimeField(null=True, blank=True)
 
     notes = models.TextField(blank=True)
 

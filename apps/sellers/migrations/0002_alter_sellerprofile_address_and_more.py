@@ -6,61 +6,70 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('sellers', '0001_initial'),
+        ("sellers", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sellerprofile',
-            name='address',
-            field=models.CharField(blank=True, verbose_name='Manzili'),
+            model_name="sellerprofile",
+            name="address",
+            field=models.CharField(blank=True, verbose_name="Manzili"),
         ),
         migrations.AlterField(
-            model_name='sellerprofile',
-            name='created_at',
+            model_name="sellerprofile",
+            name="created_at",
             field=models.DateTimeField(auto_now_add=True),
         ),
         migrations.AlterField(
-            model_name='sellerprofile',
-            name='district',
-            field=models.CharField(verbose_name='Tuman'),
+            model_name="sellerprofile",
+            name="district",
+            field=models.CharField(verbose_name="Tuman"),
         ),
         migrations.AlterField(
-            model_name='sellerprofile',
-            name='rating',
+            model_name="sellerprofile",
+            name="rating",
             field=models.FloatField(default=0, verbose_name="O'rtacha reyting"),
         ),
         migrations.AlterField(
-            model_name='sellerprofile',
-            name='region',
-            field=models.CharField(verbose_name='Viloyat'),
+            model_name="sellerprofile",
+            name="region",
+            field=models.CharField(verbose_name="Viloyat"),
         ),
         migrations.AlterField(
-            model_name='sellerprofile',
-            name='shop_description',
+            model_name="sellerprofile",
+            name="shop_description",
             field=models.TextField(blank=True, null=True, verbose_name="Do'kon tarifi"),
         ),
         migrations.AlterField(
-            model_name='sellerprofile',
-            name='shop_logo',
-            field=models.ImageField(blank=True, null=True, upload_to='seller/%Y/%m/%d/', verbose_name="Do'kon logosi"),
+            model_name="sellerprofile",
+            name="shop_logo",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="seller/%Y/%m/%d/",
+                verbose_name="Do'kon logosi",
+            ),
         ),
         migrations.AlterField(
-            model_name='sellerprofile',
-            name='total_sales',
-            field=models.PositiveIntegerField(default=0, verbose_name='Sotuvlar soni'),
+            model_name="sellerprofile",
+            name="total_sales",
+            field=models.PositiveIntegerField(default=0, verbose_name="Sotuvlar soni"),
         ),
         migrations.AlterField(
-            model_name='sellerprofile',
-            name='updated_at',
+            model_name="sellerprofile",
+            name="updated_at",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AlterField(
-            model_name='sellerprofile',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='sellerprofile', to=settings.AUTH_USER_MODEL, verbose_name="Do'kon egasi"),
+            model_name="sellerprofile",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="sellerprofile",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Do'kon egasi",
+            ),
         ),
     ]

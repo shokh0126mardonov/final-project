@@ -12,16 +12,18 @@ from .serializers import CategorySerializers
 from apps.products.serializers import ProductSerializers
 from apps.products.models import Product
 
+
 class CategoryViewSets(ModelViewSet):
     queryset = Category.objects.all()
     permission_classes = [AllowAny]
     serializer_class = CategorySerializers
     lookup_field = "slug"
-    
+
 
 class CategoryActiveProduct(APIView):
     permission_classes = [AllowAny]
-    def get(self,request:Request,slug:str)->Response:
-        category = get_object_or_404(Category,slug = slug)
-        products = Product.objects.filter(category = category).all()        
-        return Response(ProductSerializers(products,many=True).data)
+
+    def get(self, request: Request, slug: str) -> Response:
+        category = get_object_or_404(Category, slug=slug)
+        products = Product.objects.filter(category=category).all()
+        return Response(ProductSerializers(products, many=True).data)
