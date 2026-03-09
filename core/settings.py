@@ -4,7 +4,6 @@ from datetime import timedelta
 
 from pathlib import Path
 from dotenv import load_dotenv
-from decouple import config
 
 
 load_dotenv()
@@ -13,11 +12,11 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = os.getenv('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = [config("ALLOWED_HOSTS")]
+ALLOWED_HOSTS = [os.getenv("ALLOWED_HOSTS")]
 
 
 # Application definition
